@@ -1,33 +1,23 @@
-const Models = require('../models/index.js');
+const {
+  User,
+  Listing,
+  Customer,
+  Booking,
+} = require('../models/index.js');
 const seedData = require('../seeders/data.js');
 const db = require('../index.js');
 
-const User = Models.User;
-const Listing = Models.Listing;
-const Customer = Models.Customer;
-const Booking = Models.Booking;
-
 const insertSampleData = () => {
   db.sync()
-    .then(() => {
-      return User.bulkCreate(seedData.users);
-    })
-    .then(() => {
-      return Listing.bulkCreate(seedData.listings);
-    })
-    .then(() => {
-      return Customer.bulkCreate(seedData.customers);
-    })
-    .then(() => {
-      return Booking.bulkCreate(seedData.bookings);
-    })
-    .then(() =>{
-      db.close();
-    })
+    .then(() => User.bulkCreate(seedData.users))
+    .then(() => Listing.bulkCreate(seedData.listings))
+    .then(() => Customer.bulkCreate(seedData.customers))
+    .then(() => Booking.bulkCreate(seedData.bookings))
+    .then(() => db.close())
     .catch((err) => {
-      console.log(err)
       db.close();
-    })
+      throw err;
+    });
 };
 
 insertSampleData();

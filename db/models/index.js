@@ -1,24 +1,24 @@
-const db = require('../index.js');
 const Sequelize = require('sequelize');
+const db = require('../index.js');
 
 module.exports = {
   User: db.define('user', {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true
-    }, 
+      primaryKey: true,
+    },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }),
   Booking: db.define('booking', {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       unique: true,
-      primaryKey: true
+      primaryKey: true,
     },
     listing_id: {
       type: Sequelize.INTEGER,
@@ -26,73 +26,73 @@ module.exports = {
     },
     customer_id: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     start_date: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: false,
     },
     end_date: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: false,
     },
     total_cost: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     host_booking: {
-      type:Sequelize.BOOLEAN,
-      allowNull: false
-    }
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   }),
   Customer: db.define('customer', {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }),
   Listing: db.define('listing', {
-    "id": {
+    id: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
-    "owner_id": {
+    owner_id: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "review_count": {
+    review_count: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "day_rate": {
+    day_rate: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "service_fee": {
+    service_fee: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "max_guests": {
+    max_guests: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "avg_weekly_views": {
+    avg_weekly_views: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "avg_monthly_views": {
+    avg_monthly_views: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    "total_views": {
+    total_views: {
       type: Sequelize.INTEGER,
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  }),
 };
