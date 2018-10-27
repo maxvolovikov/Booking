@@ -1,4 +1,4 @@
-const users = [
+module.exports.users = [
   {
     id: 1,
     name: 'John Smith',
@@ -9,7 +9,7 @@ const users = [
   },
 ];
 
-const customers = [
+module.exports.customers = [
   {
     id: 1,
     name: 'Alice Wonderland',
@@ -20,7 +20,7 @@ const customers = [
   },
 ];
 
-const listings = [
+module.exports.listings = [
   {
     id: 1,
     owner_id: 1,
@@ -78,7 +78,7 @@ const listings = [
   },
 ];
 
-const bookings = [
+module.exports.bookings = [
   {
     id: 1,
     listing_id: 1,
@@ -143,8 +143,3 @@ const bookings = [
     host_booking: false,
   },
 ];
-
-module.exports.users = users;
-module.exports.customers = customers;
-module.exports.bookings = bookings;
-module.exports.listings = listings;
