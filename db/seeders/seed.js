@@ -16,7 +16,7 @@ const insertSampleData = () => {
     .then(() => db.close())
     .catch((err) => {
       db.close();
-      throw err;
+      throw err.parent;
     });
 };
 

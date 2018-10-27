@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-// const mysql = require('mysql2');
 
 const config = {
   host: 'localhost',
@@ -8,8 +7,7 @@ const config = {
   password: 'password',
 };
 
-// Create connection to MySQL database
-const connection = new Sequelize(config.database, config.user, config.password, {
+module.exports = new Sequelize(config.database, config.user, config.password, {
   host: config.host,
   dialect: 'mysql',
   operatorsAliases: false,
@@ -23,6 +21,7 @@ const connection = new Sequelize(config.database, config.user, config.password, 
 });
 
 // CODE FOR VANILLA MYSQL SETUP
+// const mysql = require('mysql2');
 // mysql.createConnection()
 
 // connection.connect((err) => {
@@ -40,4 +39,3 @@ const connection = new Sequelize(config.database, config.user, config.password, 
 //   }
 // });
 //
-module.exports = connection;
