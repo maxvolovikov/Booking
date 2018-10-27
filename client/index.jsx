@@ -6,7 +6,7 @@ class Booking extends React.Component {
     super();
     this.state = {
 
-    }
+    };
   }
 
   render() {
@@ -14,7 +14,7 @@ class Booking extends React.Component {
       <div>
         <h2>Hello World!</h2>
       </div>
-    )
+    );
   }
 }
 
