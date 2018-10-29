@@ -1,42 +1,31 @@
 const express = require('express');
 const path = require('path');
-// const db = require('../db/index.js');
+const controller = require('../db/controllers/index');
+
 const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, '..', '/public')));
+app.use(express.json());
 
 app.get('/rooms/:listingId', (req, res) => {
-  // TODO: Setup GET req to db
-  // Calls the controller module which issues a getter query
-  // to the database asking for a particular listing with id
+  controller.get(req.params.listingId)
+    .then((data) => {
+      if (data) res.send(data).end();
+      res.send('No listing found').end();
+    })
+    .catch((err) => {
+      console.error('Error: GET Req', err);
+      res.send(`Response Error getting listing ${req.params.listingId}`).end();
+    });
 });
 
 app.post('/bookings/:bookingId', (req, res) => {
-  // TODO: Setup POST req to DB
-  // Calls the controller module which issues a setter query
-  // to the database asking to create a new booking with id
+  controller.set(req.query, req.params.bookingId)
+    .then(() => { res.send('Booking successful. Enjoy!').end(); })
+    .catch(() => { res.send('Could not create booking. Please try again').end(); });
 });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
-
-// GET
-// {
-//   id:
-//   owner:
-//   title:
-//   availability: [{ start:, end:}, { start:, end:}, ...],
-//     views: { weekly:, monthly: total: },
-//   cost: { cleaningFee:, serviceFee:, dayRate:, weekRate: },
-//   maxGuests:
-// }
-
-// POST
-// {
-//   customerId:
-//   listingId:
-//   dates: { startDate:, endDate: },
-//   cost: { total: }
-// }
