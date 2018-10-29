@@ -1,35 +1,48 @@
 const {
   Listing,
   Booking,
+  User,
+  Customer,
 } = require('../models/index');
 
-module.exports = {
-  get: (listingId) => {
-    // TODO: get item from database
-    // Search is by listing id so we need to
-    // pull listing and owner name
-    // build a json object per API spec
-    // and return
+module.exports.user = {
+  get: (userId => User.findOne({
+    where: {
+      id: userId,
+    },
+  })
+    .then(user => user)
+    .catch((err) => { throw err; })
+  ),
+};
 
-    // Find listing by id in listings table
-    // find owner by id via listing in owner table
-    // Error handling on bad retrieval or no listing found
-    (Listing.findOne({
-      where: {
-        id: listingId,
-      },
-    })
-      .then(data => data)
-      .catch((err) => { throw err; })
-    );
-  },
-  set: (data, bookingId) => {
-    // TODO: set item to database
-    // breakdown booking object to conform
-    // to API spec json object shape
-    //
-    // build booking object
-    (Booking.create({
+module.exports.customer = {
+  get: (customerId => Customer.findOne({
+    where: {
+      id: customerId,
+    },
+  })
+    .then(customer => customer)
+    .catch((err) => { throw err; })
+  ),
+};
+
+module.exports.listing = {
+  get: (listingId => Listing.findOne({
+    where: {
+      id: listingId,
+    },
+  })
+    .then(data => data)
+    .catch((err) => { throw err; })
+  ),
+};
+
+module.exports.booking = {
+  set: ((data, bookingId) => {
+    console.log(data);
+
+    return Booking.create({
       id: bookingId,
       listing_id: data.listingId,
       customer_id: data.customerId,
@@ -44,7 +57,12 @@ module.exports = {
       .catch((err) => {
         console.error(err.original);
         throw err;
-      })
-    );
-  },
+      });
+  }),
 };
+
+// TODO: set item to database
+// breakdown booking object to conform
+// to API spec json object shape
+//
+// build booking object
