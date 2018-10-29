@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Calendar from './components/calendar';
 
 class Booking extends React.Component {
   constructor() {
@@ -13,6 +14,7 @@ class Booking extends React.Component {
     return (
       <div>
         <h2>Hello World!</h2>
+        <Calendar />
       </div>
     );
   }
