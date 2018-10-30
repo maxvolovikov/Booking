@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'node-fetch';
+import moment from 'moment';
 
 import Calendar from './components/calendar';
 import Guest from './components/guests';
@@ -53,9 +54,12 @@ class Booking extends React.Component {
   }
 
   handleCalendarChange(bookingArray) {
+    const daysRange = moment(bookingArray[1]).diff(bookingArray[0], 'days');
+
     this.setState({
       startDate: bookingArray[0],
       endDate: bookingArray[1],
+      daysBooked: daysRange,
     });
   }
 
