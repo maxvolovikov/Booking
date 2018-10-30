@@ -15,7 +15,7 @@ const Guests = ({ handleGuestCountChange, maxGuests, guestCount }) => {
   return (
     <div>
       <h3>Guests App</h3>
-      <select onChange={handleChange} value={guestCount}>
+      <select className="guest-dropdown" onChange={handleChange} value={guestCount}>
         {options}
       </select>
     </div>
