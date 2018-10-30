@@ -47,8 +47,8 @@ app.get('/rooms/:listingId', (req, res) => {
     });
 });
 
-app.post('/bookings/:bookingId', (req, res) => {
-  controller.booking.set(req.query, req.params.bookingId)
+app.post('/booking', (req, res) => {
+  controller.booking.set(req.query)
     .then(() => { res.send('Booking successful. Enjoy!').end(); })
     .catch(() => { res.status(500).send('Could not create booking. Please try again').end(); });
 });
