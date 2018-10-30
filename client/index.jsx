@@ -17,8 +17,8 @@ class Booking extends React.Component {
       customerId: this.chooseRandom(15),
       guestCount: 1,
       daysBooked: 1,
-      startDate: '',
-      endDate: '',
+      startDate: new Date(),
+      endDate: {},
       total: 0,
     };
 
@@ -52,8 +52,11 @@ class Booking extends React.Component {
     });
   }
 
-  handleCalendarChange() {
-    // TODO: update state
+  handleCalendarChange(bookingArray) {
+    this.setState({
+      startDate: bookingArray[0],
+      endDate: bookingArray[1],
+    });
   }
 
   // buildBookingObject() {
@@ -103,10 +106,10 @@ class Booking extends React.Component {
   render() {
     const {
       review_count,
-      start_date,
-      end_date,
       max_guests,
       guestCount,
+      startDate,
+      endDate,
     } = this.state;
 
     return (
@@ -114,8 +117,9 @@ class Booking extends React.Component {
         <Price {...this.state} handleTotalChange={this.handleTotalChange} />
         <Reviews reviews={review_count} />
         <Calendar
-          start={start_date}
-          end={end_date}
+          start={startDate}
+          end={endDate}
+          handleCalendarChange={this.handleCalendarChange}
         />
         <Guest
           maxGuests={max_guests}

@@ -1,33 +1,32 @@
 import React from 'react';
 import Cal from 'react-calendar';
+import PropTypes from 'prop-types';
 
-class Calendar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date(),
-    };
-  }
+const Calendar = ({ start, handleCalendarChange }) => {
+  const onChange = (val) => {
+    handleCalendarChange(val);
+  };
 
-  onChange(e) {
-    this.setState({
-      date: e.target.value,
-    });
-  }
+  return (
+    <div>
+      <h3>Calendar App</h3>
+      <Cal
+        onChange={onChange}
+        value={start}
+        selectRange
+      />
+    </div>
+  );
+};
 
-  render() {
-    const { date } = this.state;
+Calendar.propTypes = {
+  start: PropTypes.instanceOf(Date),
+  handleCalendarChange: PropTypes.func,
+};
 
-    return (
-      <div>
-        <h3>Calendar App</h3>
-        <Cal
-          onChange={this.onChange}
-          value={date}
-        />
-      </div>
-    );
-  }
-}
+Calendar.defaultProps = {
+  start: new Date(),
+  handleCalendarChange: () => {},
+};
 
 export default Calendar;
