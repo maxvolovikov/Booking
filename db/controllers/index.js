@@ -32,6 +32,9 @@ module.exports.listing = {
     where: {
       id: listingId,
     },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
   })
     .then(data => data)
     .catch((err) => { throw err; })
@@ -40,23 +43,18 @@ module.exports.listing = {
 
 module.exports.booking = {
   set: ((data, bookingId) => {
-    console.log(data);
+    const booking = {};
 
-    return Booking.create({
-      id: bookingId,
-      listing_id: data.listingId,
-      customer_id: data.customerId,
-      start_date: data.start,
-      end_date: data.end,
-      total_cost: data.total,
-      host_booking: data.hostBooking,
-    })
+    Object.keys(data).forEach((key) => {
+      booking[key] = data[key];
+    });
+
+    return Booking.create(booking)
       .then(() => {
         console.log(`Booking ID: ${bookingId} saved to the database`);
       })
       .catch((err) => {
-        console.error(err.original);
-        throw err;
+        console.error(err);
       });
   }),
 };
