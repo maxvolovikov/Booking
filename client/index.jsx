@@ -14,7 +14,7 @@ class Booking extends React.Component {
   constructor() {
     super();
     this.state = {
-      customerId: this.chooseRandom(2),
+      customerId: this.chooseRandom(15),
       guestCount: 1,
       daysBooked: 1,
       startDate: '',
@@ -108,6 +108,7 @@ class Booking extends React.Component {
       max_guests,
       guestCount,
     } = this.state;
+
     return (
       <div className="container">
         <Price {...this.state} handleTotalChange={this.handleTotalChange} />
