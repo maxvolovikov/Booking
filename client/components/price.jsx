@@ -9,15 +9,22 @@ const Price = ({
   guestCount,
   day_rate,
   daysBooked,
+  total,
+  handleTotalChange,
 }) => {
   const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+
+  // const handleChange = (e) => {
+  //   handleTotalChange(e.target.value);
+  // };
+
   return (
     <div>
       <h3>Price Display</h3>
-      <div>${day_rate} per night</div>
-      <div>Cleaning: ${cleaning_fee}</div>
-      <div>Service: ${service_fee}</div>
-      <div><b>Total: ${newTotal}</b></div>
+      <div className="rate">${day_rate} per night</div>
+      <div className="fee">Cleaning: ${cleaning_fee}</div>
+      <div className="fee">Service: ${service_fee}</div>
+      <div className="total"><b>Total: ${newTotal}</b></div>
     </div>
   );
 };
@@ -28,6 +35,8 @@ Price.propTypes = {
   service_fee: PropTypes.number,
   guestCount: PropTypes.number,
   daysBooked: PropTypes.number,
+  total: PropTypes.number,
+  handleTotalChange: PropTypes.func,
 };
 
 Price.defaultProps = {
@@ -36,6 +45,8 @@ Price.defaultProps = {
   service_fee: 0,
   guestCount: 0,
   daysBooked: 0,
+  total: 0,
+  handleTotalChange: () => {},
 };
 
 export default Price;
