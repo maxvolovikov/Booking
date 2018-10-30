@@ -1,60 +1,41 @@
+/* eslint camelcase: "off" */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Price extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: 0,
-      days: 1,
-      guests: 1,
-    };
-  }
-
-  componentDidUpdate() {
-    this.updateTotal();
-  }
-
-  updateTotal() {
-    const { rates } = this.props;
-    const { days, guests } = this.state;
-    const newTotal = rates.cleaning + rates.service + (rates.rate * guests * days);
-
-    this.setState({
-      total: newTotal,
-    });
-  }
-
-  render() {
-    const { total } = this.state;
-    const { rates } = this.props;
-
-    console.log(rates);
-
-    return (
-      <div>
-        <h3>Price Display</h3>
-        <p>
-        Fees
-        </p>
-        <p>
-          Cleaning: $
-          {rates.cleaning}
-        </p>
-        <p>
-          Service: $
-          {rates.service}
-        </p>
-        <b>Total: </b>
-        $
-        {total}
-      </div>
-    );
-  }
-}
+const Price = ({
+  cleaning_fee,
+  service_fee,
+  guestCount,
+  day_rate,
+  daysBooked,
+}) => {
+  const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+  return (
+    <div>
+      <h3>Price Display</h3>
+      <div>${day_rate} per night</div>
+      <div>Cleaning: ${cleaning_fee}</div>
+      <div>Service: ${service_fee}</div>
+      <div><b>Total: ${newTotal}</b></div>
+    </div>
+  );
+};
 
 Price.propTypes = {
-  rates: PropTypes.object,
+  day_rate: PropTypes.number,
+  cleaning_fee: PropTypes.number,
+  service_fee: PropTypes.number,
+  guestCount: PropTypes.number,
+  daysBooked: PropTypes.number,
+};
+
+Price.defaultProps = {
+  day_rate: 0,
+  cleaning_fee: 0,
+  service_fee: 0,
+  guestCount: 0,
+  daysBooked: 0,
 };
 
 export default Price;
