@@ -1,3 +1,5 @@
+/* eslint camelcase: "off" */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'node-fetch';
@@ -14,29 +16,37 @@ class Booking extends React.Component {
     super();
     this.state = {
       customerId: this.chooseRandom(2),
-      total: 0,
+      guestCount: 1,
+      daysBooked: 1,
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
     this.handleGuestCountChange = this.handleGuestCountChange.bind(this);
+    this.handleTotalChange = this.handleTotalChange.bind(this);
   }
 
   componentDidMount() {
     fetch(`/rooms/${this.chooseRandom(5)}`)
       .then(res => res.json())
-      .then((listing) => {
-        this.updateState(listing);
-      })
+      .then((listing) => { this.updateState(listing); })
       .catch((err) => { throw err; });
   }
 
-  handleCalendarChange() {
-    //TODO: update state
+  handleTotalChange(newTotal) {
+    this.setState({
+      total: newTotal,
+    });
   }
 
-  handleGuestCountChange() {
-    
+  handleCalendarChange() {
+    // TODO: update state
+  }
+
+  handleGuestCountChange(newCount) {
+    this.setState({
+      guestCount: newCount,
+    });
   }
 
   handleOnSubmit(e) {
@@ -62,9 +72,9 @@ class Booking extends React.Component {
       .catch((err) => { throw err; });
   }
 
-  buildBookingObject() {
-    // TODO: create an object to pass into POST request
-  }
+  // buildBookingObject() {
+  //   // TODO: create an object to pass into POST request
+  // }
 
   updateState(listing) {
     this.setState(listing);
@@ -77,27 +87,25 @@ class Booking extends React.Component {
 
   render() {
     const {
-      day_rate,
-      service_fee,
-      cleaning_fee,
       review_count,
       start_date,
       end_date,
       max_guests,
+      guestCount,
     } = this.state;
-
-    this.rates = {
-      rate: day_rate,
-      service: service_fee,
-      cleaning: cleaning_fee,
-    };
-
     return (
       <div>
-        <Price rates={this.rates} total={}/>
+        <Price {...this.state} />
         <Reviews reviews={review_count} />
-        <Calendar start={start_date} end={end_date} />
-        <Guest guests={max_guests} handleGuestCountChange={this.handleGuestCountChange} />
+        <Calendar
+          start={start_date}
+          end={end_date}
+        />
+        <Guest
+          maxGuests={max_guests}
+          guestCount={guestCount}
+          handleGuestCountChange={this.handleGuestCountChange}
+        />
         <Book handleOnSubmit={this.handleOnSubmit} />
       </div>
     );
