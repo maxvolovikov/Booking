@@ -74,6 +74,10 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    cleaning_fee: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     service_fee: {
       type: Sequelize.INTEGER,
       allowNull: false,
