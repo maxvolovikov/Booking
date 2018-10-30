@@ -12,4 +12,8 @@ Book.propTypes = {
   handleOnSubmit: PropTypes.func,
 };
 
+Book.defaultProps = {
+  handleOnSubmit: () => {},
+};
+
 export default Book;
