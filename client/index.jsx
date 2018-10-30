@@ -10,7 +10,6 @@ import Book from './components/book';
 import Reviews from './components/reviews';
 import Price from './components/price';
 
-
 class Booking extends React.Component {
   constructor() {
     super();
@@ -18,6 +17,9 @@ class Booking extends React.Component {
       customerId: this.chooseRandom(2),
       guestCount: 1,
       daysBooked: 1,
+      startDate: '',
+      endDate: '',
+      total: 0,
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
@@ -29,8 +31,19 @@ class Booking extends React.Component {
   componentDidMount() {
     fetch(`/rooms/${this.chooseRandom(5)}`)
       .then(res => res.json())
-      .then((listing) => { this.updateState(listing); })
+      .then((listing) => { this.setState(listing); })
       .catch((err) => { throw err; });
+  }
+
+  chooseRandom(max) {
+    this.rand = Math.floor(Math.random() * (max - 1 + 1)) + 1;
+    return this.rand;
+  }
+
+  handleGuestCountChange(newCount) {
+    this.setState({
+      guestCount: newCount,
+    });
   }
 
   handleTotalChange(newTotal) {
@@ -43,13 +56,29 @@ class Booking extends React.Component {
     // TODO: update state
   }
 
-  handleGuestCountChange(newCount) {
-    this.setState({
-      guestCount: newCount,
-    });
-  }
+  // buildBookingObject() {
+  //   // TODO: create an object to pass into POST request
+  // }
 
   handleOnSubmit(e) {
+    const {
+      id,
+      customerId,
+      startDate,
+      endDate,
+      total,
+    } = this.state;
+
+    this.booking = {
+      id: 0,
+      listing_id: id,
+      customer_id: customerId,
+      start_date: startDate,
+      end_date: endDate,
+      total_cost: total,
+      host_booking: false,
+    };
+
     e.preventDefault();
 
     // TODO: this should post to bookings without an ID
@@ -60,29 +89,15 @@ class Booking extends React.Component {
     // Client sends booking info
     // this.buildBookingObject();
 
-    fetch({
+    fetch('/booking', {
       method: 'POST',
-      uri: '/booking',
-      body: this.state,
+      body: this.booking,
     })
       .then(() => {
         // TODO: After posting, inform client
         // Booking was successful!
       })
       .catch((err) => { throw err; });
-  }
-
-  // buildBookingObject() {
-  //   // TODO: create an object to pass into POST request
-  // }
-
-  updateState(listing) {
-    this.setState(listing);
-  }
-
-  chooseRandom(max) {
-    this.rand = Math.floor(Math.random() * (max - 1 + 1)) + 1;
-    return this.rand;
   }
 
   render() {
@@ -94,8 +109,8 @@ class Booking extends React.Component {
       guestCount,
     } = this.state;
     return (
-      <div>
-        <Price {...this.state} />
+      <div className="container">
+        <Price {...this.state} handleTotalChange={this.handleTotalChange} />
         <Reviews reviews={review_count} />
         <Calendar
           start={start_date}
