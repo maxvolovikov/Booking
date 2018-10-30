@@ -8,8 +8,12 @@ const Reviews = ({ reviews }) => (
   </div>
 );
 
-Reviews.propType = {
+Reviews.propTypes = {
   reviews: PropTypes.number,
+};
+
+Reviews.defaultProps = {
+  reviews: 0,
 };
 
 export default Reviews;
