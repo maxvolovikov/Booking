@@ -1,4 +1,5 @@
 const faker = require('faker');
+const moment = require('moment');
 
 const numberGenerator = (min, max) => Math.floor(Math.random() * (max - min + min)) + min;
 
@@ -38,12 +39,15 @@ module.exports.generate = {
   bookings: (num) => {
     for (let i = 1; i <= num; i += 1) {
       const booking = {};
+      const today = moment();
+      const start = faker.date.between(today, today.add(numberGenerator(1, 90), 'days'));
+      const end = moment(start).add(numberGenerator(1, 15), 'days');
       booking.id = i;
       booking.listing_id = numberGenerator(1, 100);
       booking.customer_id = numberGenerator(1, 15);
-      booking.start_date = new Date();
-      booking.end_date = new Date();
-      booking.total_cost = numberGenerator(150, 1000);
+      booking.start_date = start;
+      booking.end_date = end;
+      booking.total_cost = numberGenerator(150, 1800);
       booking.host_booking = false;
       module.exports.bookings.push(booking);
     }
