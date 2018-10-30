@@ -54,7 +54,7 @@ module.exports.booking = {
         console.log(`Booking ID: ${bookingId} saved to the database`);
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err, 'Error: Creating new booking ent');
       });
   }),
 };
