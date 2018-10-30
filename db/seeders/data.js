@@ -1,150 +1,56 @@
-module.exports.users = [
-  {
-    id: 1,
-    name: 'John Smith',
-  },
-  {
-    id: 2,
-    name: 'Jane Doe',
-  },
-];
+const faker = require('faker');
 
-module.exports.customers = [
-  {
-    id: 1,
-    name: 'Alice Wonderland',
-  },
-  {
-    id: 2,
-    name: 'Bob Ross',
-  },
-];
+const numberGenerator = (min, max) => Math.floor(Math.random() * (max - min + min)) + min;
 
-module.exports.listings = [
-  {
-    id: 1,
-    owner_id: 1,
-    review_count: 59,
-    day_rate: 162,
-    cleaning_fee: 50,
-    service_fee: 9,
-    max_guests: 5,
-    avg_weekly_views: 382,
-    avg_monthly_views: 236,
-    total_views: 3543,
+module.exports.generate = {
+  users: (num) => {
+    for (let i = 1; i <= num; i += 1) {
+      const user = {};
+      user.id = i;
+      user.name = faker.name.findName();
+      module.exports.users.push(user);
+    }
   },
-  {
-    id: 2,
-    owner_id: 2,
-    review_count: 18,
-    day_rate: 105,
-    cleaning_fee: 50,
-    service_fee: 64,
-    max_guests: 5,
-    avg_weekly_views: 241,
-    avg_monthly_views: 1583,
-    total_views: 8137,
+  customers: (num) => {
+    for (let i = 1; i <= num; i += 1) {
+      const customer = {};
+      customer.id = i;
+      customer.name = faker.name.findName();
+      module.exports.customers.push(customer);
+    }
   },
-  {
-    id: 3,
-    owner_id: 2,
-    review_count: 25,
-    day_rate: 159,
-    cleaning_fee: 50,
-    service_fee: 68,
-    max_guests: 5,
-    avg_weekly_views: 47,
-    avg_monthly_views: 508,
-    total_views: 853,
+  listings: (num) => {
+    for (let i = 1; i <= num; i += 1) {
+      const listing = {};
+      listing.id = i;
+      listing.owner_id = numberGenerator(1, 20);
+      listing.review_count = numberGenerator(3, 500);
+      listing.day_rate = numberGenerator(45, 500);
+      listing.cleaning_fee = numberGenerator(50, 200);
+      listing.service_fee = numberGenerator(25, 100);
+      listing.max_guests = numberGenerator(1, 15);
+      listing.avg_weekly_views = numberGenerator(45, 500);
+      listing.avg_monthly_views = numberGenerator(200, 1200);
+      listing.total_views = numberGenerator(600, 7800);
+      module.exports.listings.push(listing);
+    }
   },
-  {
-    id: 4,
-    owner_id: 1,
-    review_count: 92,
-    day_rate: 81,
-    cleaning_fee: 50,
-    service_fee: 6,
-    max_guests: 9,
-    avg_weekly_views: 338,
-    avg_monthly_views: 628,
-    total_views: 6310,
+  bookings: (num) => {
+    for (let i = 1; i <= num; i += 1) {
+      const booking = {};
+      booking.id = i;
+      booking.listing_id = numberGenerator(1, 100);
+      booking.customer_id = numberGenerator(1, 15);
+      booking.start_date = new Date();
+      booking.end_date = new Date();
+      booking.total_cost = numberGenerator(150, 1000);
+      booking.host_booking = false;
+      module.exports.bookings.push(booking);
+    }
   },
-  {
-    id: 5,
-    owner_id: 1,
-    review_count: 8,
-    day_rate: 200,
-    cleaning_fee: 50,
-    service_fee: 24,
-    max_guests: 3,
-    avg_weekly_views: 359,
-    avg_monthly_views: 238,
-    total_views: 8753,
-  },
-];
+};
 
-module.exports.bookings = [
-  {
-    id: 1,
-    listing_id: 1,
-    customer_id: 1,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 100,
-    host_booking: false,
-  },
-  {
-    id: 2,
-    listing_id: 3,
-    customer_id: 2,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 200,
-    host_booking: false,
-  },
-  {
-    id: 3,
-    listing_id: 2,
-    customer_id: 2,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 50,
-    host_booking: false,
-  },
-  {
-    id: 4,
-    listing_id: 5,
-    customer_id: 2,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 250,
-    host_booking: false,
-  },
-  {
-    id: 5,
-    listing_id: 4,
-    customer_id: 1,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 500,
-    host_booking: false,
-  },
-  {
-    id: 6,
-    listing_id: 2,
-    customer_id: 2,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 100,
-    host_booking: false,
-  },
-  {
-    id: 7,
-    listing_id: 1,
-    customer_id: 1,
-    start_date: new Date(),
-    end_date: new Date(),
-    total_cost: 50,
-    host_booking: false,
-  },
-];
+module.exports.users = [];
+module.exports.customers = [];
+module.exports.listings = [];
+module.exports.bookings = [];
