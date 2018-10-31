@@ -1,32 +1,59 @@
 import React from 'react';
-import Cal from 'react-calendar';
+import { DateRangePicker, ICON_BEFORE_POSITION } from 'react-dates';
+import momentPropTypes from 'react-moment-proptypes';
 import PropTypes from 'prop-types';
 
-const Calendar = ({ start, handleCalendarChange }) => {
-  const onChange = (val) => {
-    handleCalendarChange(val);
+const Calendar = ({
+  startDate,
+  startDateId,
+  endDate,
+  endDateId,
+  handleDatesChange,
+  handleFocusChange,
+  focusedInput,
+}) => {
+  const onFocusChange = (val) => {
+    handleFocusChange(val);
+  };
+
+  const onDatesChange = (val) => {
+    handleDatesChange(val);
   };
 
   return (
-    <div>
+    <div className="calendar">
       <h3>Calendar App</h3>
-      <Cal
-        onChange={onChange}
-        value={start}
-        selectRange
+      <DateRangePicker
+        startDate={startDate}
+        startDateId={startDateId}
+        endDate={endDate}
+        endDateId={endDateId}
+        onDatesChange={val => onDatesChange(val)}
+        focusedInput={focusedInput}
+        onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
+        inputIconPosition={ICON_BEFORE_POSITION}
+        showDefaultInputIcon
+        startDatePlaceholderText="Check In"
+        endDatePlaceholderText="Check Out"
       />
     </div>
   );
 };
 
 Calendar.propTypes = {
-  start: PropTypes.instanceOf(Date),
-  handleCalendarChange: PropTypes.func,
+  startDate: momentPropTypes.momentObj,
+  startDateId: PropTypes.string.isRequired,
+  endDate: momentPropTypes.momentObj,
+  endDateId: PropTypes.string.isRequired,
+  handleDatesChange: PropTypes.func.isRequired,
+  focusedInput: PropTypes.oneOf([null, 'startDate', 'endDate']),
+  handleFocusChange: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
-  start: new Date(),
-  handleCalendarChange: () => {},
+  startDate: null,
+  endDate: null,
+  focusedInput: null,
 };
 
 export default Calendar;
