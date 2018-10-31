@@ -1,5 +1,8 @@
 /* eslint camelcase: "off" */
 
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'node-fetch';
@@ -18,15 +21,17 @@ class Booking extends React.Component {
       customerId: this.chooseRandom(15),
       guestCount: 1,
       daysBooked: 1,
-      startDate: new Date(),
-      endDate: {},
+      startDate: null,
+      endDate: null,
+      focusedInput: null,
       total: 0,
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this.handleCalendarChange = this.handleCalendarChange.bind(this);
+    this.handleDatesChange = this.handleDatesChange.bind(this);
     this.handleGuestCountChange = this.handleGuestCountChange.bind(this);
     this.handleTotalChange = this.handleTotalChange.bind(this);
+    this.handleFocusChange = this.handleFocusChange.bind(this);
   }
 
   componentDidMount() {
@@ -53,13 +58,21 @@ class Booking extends React.Component {
     });
   }
 
-  handleCalendarChange(bookingArray) {
-    const daysRange = moment(bookingArray[1]).diff(bookingArray[0], 'days');
+  handleDatesChange(val) {
+    const start = val.startDate;
+    const end = val.endDate;
+    const days = moment(end).diff(start, 'days');
 
     this.setState({
-      startDate: bookingArray[0],
-      endDate: bookingArray[1],
-      daysBooked: daysRange,
+      startDate: start,
+      endDate: end,
+      daysBooked: days,
+    });
+  }
+
+  handleFocusChange(val) {
+    this.setState({
+      focusedInput: val,
     });
   }
 
@@ -114,6 +127,7 @@ class Booking extends React.Component {
       guestCount,
       startDate,
       endDate,
+      focusedInput,
     } = this.state;
 
     return (
@@ -121,9 +135,13 @@ class Booking extends React.Component {
         <Price {...this.state} handleTotalChange={this.handleTotalChange} />
         <Reviews reviews={review_count} />
         <Calendar
-          start={startDate}
-          end={endDate}
-          handleCalendarChange={this.handleCalendarChange}
+          focusedInput={focusedInput}
+          startDate={startDate}
+          startDateId="start-date"
+          endDate={endDate}
+          endDateId="end-date"
+          handleDatesChange={this.handleDatesChange}
+          handleFocusChange={this.handleFocusChange}
         />
         <Guest
           maxGuests={max_guests}
