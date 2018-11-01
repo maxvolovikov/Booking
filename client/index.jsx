@@ -38,6 +38,7 @@ class Booking extends React.Component {
     fetch(`/rooms/${this.chooseRandom(5)}`)
       .then(res => res.json())
       .then((listing) => { this.setState(listing); })
+      .then(() => { this.handleTotalChange(); })
       .catch((err) => { throw err; });
   }
 
@@ -50,23 +51,30 @@ class Booking extends React.Component {
     this.setState({
       guestCount: newCount,
     });
-  }
 
-  handleTotalChange(newTotal) {
-    this.setState({
-      total: newTotal,
-    });
+    this.handleTotalChange();
   }
 
   handleDatesChange(val) {
-    const start = val.startDate;
-    const end = val.endDate;
-    const days = moment(end).diff(start, 'days');
+    const { startDate, endDate } = val;
+    const days = moment(endDate).diff(startDate, 'days');
+    this.setState({ startDate, endDate, daysBooked: days });
+    this.handleTotalChange();
+  }
+
+  handleTotalChange() {
+    const {
+      cleaning_fee,
+      service_fee,
+      guestCount,
+      day_rate,
+      daysBooked,
+    } = this.state;
+
+    const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
 
     this.setState({
-      startDate: start,
-      endDate: end,
-      daysBooked: days,
+      total: newTotal,
     });
   }
 
