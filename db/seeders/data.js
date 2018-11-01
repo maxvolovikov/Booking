@@ -41,7 +41,6 @@ module.exports.generate = {
       const today = moment();
       const start = faker.date.between(today, today.add(module.exports.generate.numberGenerator(1, 90), 'days'));
       const end = moment(start).add(module.exports.generate.numberGenerator(1, 15), 'days');
-      booking.id = i;
       booking.listing_id = module.exports.generate.numberGenerator(1, 100);
       booking.customer_id = module.exports.generate.numberGenerator(1, 15);
       booking.start_date = start;
