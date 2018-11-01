@@ -3,31 +3,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Price = ({
-  cleaning_fee,
-  service_fee,
-  guestCount,
-  day_rate,
-  daysBooked,
-  handleTotalChange,
-  total,
-}) => {
-  const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+class Price extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const {
+      cleaning_fee,
+      service_fee,
+      guestCount,
+      day_rate,
+      daysBooked,
+      handleTotalChange,
+    } = nextProps;
+    const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+  }
 
-  // if (total !== newTotal) {
-  //   handleTotalChange(newTotal);
-  // }
+  onChange() {
+    this.props.handleTotalChange(total);
+  }
 
-  return (
-    <div>
-      <h3>Price Display</h3>
-      <div className="rate">${day_rate} per night</div>
-      <div className="fee">Cleaning: ${cleaning_fee}</div>
-      <div className="fee">Service: ${service_fee}</div>
-      <div className="total">Total: ${newTotal}</div>
-    </div>
-  );
-};
+  render() {
+    const {
+      cleaning_fee,
+      service_fee,
+      day_rate,
+      total,
+    } = this.props;
+
+    return (
+      <div>
+        <h3>Price Display</h3>
+        <div className="rate">${day_rate} per night</div>
+        <div className="fee">Cleaning: ${cleaning_fee}</div>
+        <div className="fee">Service: ${service_fee}</div>
+        <div className="total" onChange={this.onChange}>Total: ${total}</div>
+      </div>
+    );
+  }
+}
+
+// const Price = ({
+//   cleaning_fee,
+//   service_fee,
+//   guestCount,
+//   day_rate,
+//   daysBooked,
+//   handleTotalChange,
+//   total,
+// }) => {
+//   const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+
+//   // if (total !== newTotal) {
+//   //   handleTotalChange(newTotal);
+//   // }
+
+//   return (
+//     <div>
+//       <h3>Price Display</h3>
+//       <div className="rate">${day_rate} per night</div>
+//       <div className="fee">Cleaning: ${cleaning_fee}</div>
+//       <div className="fee">Service: ${service_fee}</div>
+//       <div className="total">Total: ${newTotal}</div>
+//     </div>
+//   );
+// };
 
 Price.propTypes = {
   day_rate: PropTypes.number,
