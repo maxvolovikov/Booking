@@ -76,11 +76,8 @@ class Booking extends React.Component {
     });
   }
 
-  // buildBookingObject() {
-  //   // TODO: create an object to pass into POST request
-  // }
-
   handleOnSubmit(e) {
+    e.preventDefault();
     const {
       id,
       customerId,
@@ -90,33 +87,20 @@ class Booking extends React.Component {
     } = this.state;
 
     this.booking = {
-      id: 0,
       listing_id: id,
       customer_id: customerId,
-      start_date: startDate,
-      end_date: endDate,
+      start_date: moment(startDate).format(),
+      end_date: moment(endDate).format(),
       total_cost: total,
       host_booking: false,
     };
 
-    e.preventDefault();
-
-    // TODO: this should post to bookings without an ID
-    // Client does not handle bookingId generation
-    // Server (or database) should handle unique identification
-    // for bookingId.
-
-    // Client sends booking info
-    // this.buildBookingObject();
-
     fetch('/booking', {
       method: 'POST',
-      body: this.booking,
+      body: JSON.stringify(this.booking),
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(() => {
-        // TODO: After posting, inform client
-        // Booking was successful!
-      })
+      .then(() => { console.log('Booking was successful!'); })
       .catch((err) => { throw err; });
   }
 
@@ -128,6 +112,7 @@ class Booking extends React.Component {
       startDate,
       endDate,
       focusedInput,
+      total,
     } = this.state;
 
     return (
@@ -148,7 +133,7 @@ class Booking extends React.Component {
           guestCount={guestCount}
           handleGuestCountChange={this.handleGuestCountChange}
         />
-        <Book handleOnSubmit={this.handleOnSubmit} />
+        <Book total={total} handleOnSubmit={this.handleOnSubmit} />
       </div>
     );
   }
