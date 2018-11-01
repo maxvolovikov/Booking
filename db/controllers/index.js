@@ -42,7 +42,7 @@ module.exports.listing = {
 };
 
 module.exports.booking = {
-  set: ((data, bookingId) => {
+  set: ((data) => {
     const booking = {};
 
     Object.keys(data).forEach((key) => {
@@ -51,10 +51,10 @@ module.exports.booking = {
 
     return Booking.create(booking)
       .then(() => {
-        console.log(`Booking ID: ${bookingId} saved to the database`);
+        console.log('Booking saved to the database');
       })
-      .catch((err) => {
-        console.error(err, 'Error: Creating new booking ent');
+      .catch(() => {
+        console.error('Error: Creating new booking entry');
       });
   }),
 };
