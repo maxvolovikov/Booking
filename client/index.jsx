@@ -30,7 +30,6 @@ class Booking extends React.Component {
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleDatesChange = this.handleDatesChange.bind(this);
     this.handleGuestCountChange = this.handleGuestCountChange.bind(this);
-    this.handleTotalChange = this.handleTotalChange.bind(this);
     this.handleFocusChange = this.handleFocusChange.bind(this);
   }
 
@@ -38,7 +37,6 @@ class Booking extends React.Component {
     fetch(`/rooms/${this.chooseRandom(5)}`)
       .then(res => res.json())
       .then((listing) => { this.setState(listing); })
-      .then(() => { this.handleTotalChange(); })
       .catch((err) => { throw err; });
   }
 
@@ -48,33 +46,34 @@ class Booking extends React.Component {
   }
 
   handleGuestCountChange(newCount) {
+    const {
+      day_rate,
+      daysBooked,
+      cleaning_fee,
+      service_fee,
+    } = this.state;
+
     this.setState({
       guestCount: newCount,
+      total: (day_rate * newCount * daysBooked) + cleaning_fee + service_fee,
     });
-
-    this.handleTotalChange();
   }
 
   handleDatesChange(val) {
-    const { startDate, endDate } = val;
-    const days = moment(endDate).diff(startDate, 'days');
-    this.setState({ startDate, endDate, daysBooked: days });
-    this.handleTotalChange();
-  }
-
-  handleTotalChange() {
     const {
+      day_rate,
       cleaning_fee,
       service_fee,
       guestCount,
-      day_rate,
-      daysBooked,
     } = this.state;
-
-    const newTotal = (day_rate * guestCount * daysBooked) + cleaning_fee + service_fee;
+    const { startDate, endDate } = val;
+    const days = moment(endDate).diff(startDate, 'days');
 
     this.setState({
-      total: newTotal,
+      startDate,
+      endDate,
+      daysBooked: days || 1,
+      total: (day_rate * guestCount * days) + cleaning_fee + service_fee,
     });
   }
 
@@ -125,7 +124,7 @@ class Booking extends React.Component {
 
     return (
       <div className="container">
-        <Price {...this.state} handleTotalChange={this.handleTotalChange} />
+        <Price {...this.state} />
         <Reviews reviews={review_count} />
         <Calendar
           focusedInput={focusedInput}
