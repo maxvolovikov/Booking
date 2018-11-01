@@ -19,6 +19,7 @@ module.exports = {
       allowNull: false,
       unique: true,
       primaryKey: true,
+      autoIncrement: true,
     },
     listing_id: {
       type: Sequelize.INTEGER,
