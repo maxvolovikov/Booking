@@ -28,9 +28,9 @@ const Calendar = ({
       <h3>Calendar App</h3>
       <DateRangePicker
         startDate={startDate}
-        startDateId={startDateId}
+        startDateId={startDateId || 'start-date'}
         endDate={endDate}
-        endDateId={endDateId}
+        endDateId={endDateId || 'end-date'}
         onDatesChange={val => onDatesChange(val)}
         focusedInput={focusedInput}
         onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
