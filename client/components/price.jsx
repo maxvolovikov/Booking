@@ -9,7 +9,7 @@ const Price = ({
   day_rate,
   total,
 }) => (
-  <div className="price-display">
+  <div className="price">
     <h3>Price Display</h3>
     <div className="rate">${day_rate} per night</div>
     <div className="fee">Cleaning: ${cleaning_fee}</div>
