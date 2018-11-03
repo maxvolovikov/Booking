@@ -75,11 +75,10 @@ describe('<Book />', () => {
 describe('<Guests />', () => {
   let w;
   beforeEach(() => {
-    w = mount(<Guests guestCount={10} />);
+    w = mount(<Guests />);
   });
 
   it('has guest dropdown menu', () => {
     expect(w.find('.guest-dropdown')).to.have.lengthOf(1);
-    // expect(w.find({ prop: 'value' })).to.equal(10);
   });
 });
