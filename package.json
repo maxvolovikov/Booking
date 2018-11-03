@@ -44,6 +44,7 @@
     "babel-preset-jest": "^23.2.0",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
