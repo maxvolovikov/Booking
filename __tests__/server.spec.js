@@ -30,6 +30,9 @@ describe('Server API', () => {
       }));
 
   it('should respond with 200 to POST at /booking',
+    // TODO: Shoudl post a new entry to the database
+    // and then remove on success
+
     () => fetch(api).post('/booking')
       .then((res) => {
         expect(res.statusCode).to.equal(200);
