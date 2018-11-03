@@ -11,6 +11,9 @@ const Price = ({
 }) => (
   <div className="price">
     <div className="rate">${day_rate} per night</div>
+    <div className="fee">Cleaning: ${cleaning_fee}</div>
+    <div className="fee">Service: ${service_fee}</div>
+    <div className="total">Total: ${total}</div>
   </div>
 );
 
