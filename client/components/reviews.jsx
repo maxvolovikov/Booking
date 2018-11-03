@@ -11,13 +11,13 @@ const Reviews = ({ reviews, stars }) => {
   const starDisplay = [];
 
   for (let i = 1; i <= stars; i += 1) {
-    starDisplay.push(0);
+    starDisplay.push(i);
   }
 
   return (
     <div>
       <div className="stars">
-        {starDisplay.map(() => <FontAwesomeIcon icon="star" />)}
+        {starDisplay.map(e => <FontAwesomeIcon icon="star" key={e} />)}
         <span className="reviews">
           &nbsp;
           &nbsp;
