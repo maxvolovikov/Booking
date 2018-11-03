@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const Reviews = ({ reviews }) => (
   <div className="reviews">
-    <h3>Reviews Display</h3>
     {reviews}
   </div>
 );
