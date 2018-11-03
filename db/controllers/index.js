@@ -42,6 +42,17 @@ module.exports.listing = {
 };
 
 module.exports.booking = {
+  get: (bookingId => Booking.findOne({
+    where: {
+      id: bookingId,
+    },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
+  })
+    .then(data => data)
+    .catch((err) => { throw err; })
+  ),
   set: ((data) => {
     const booking = {};
 
@@ -58,9 +69,3 @@ module.exports.booking = {
       });
   }),
 };
-
-// TODO: set item to database
-// breakdown booking object to conform
-// to API spec json object shape
-//
-// build booking object
