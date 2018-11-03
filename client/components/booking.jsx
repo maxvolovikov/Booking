@@ -4,6 +4,7 @@ import React from 'react';
 import fetch from 'node-fetch';
 import moment from 'moment';
 
+import '../../public/style.css';
 import Calendar from './calendar';
 import Guest from './guests';
 import Book from './book';
@@ -51,7 +52,7 @@ class Booking extends React.Component {
 
     this.setState({
       guestCount: newCount,
-      total: (day_rate * newCount * daysBooked) + cleaning_fee + service_fee,
+      total: ((day_rate * daysBooked) + cleaning_fee + service_fee) * newCount,
     });
   }
 
@@ -69,7 +70,7 @@ class Booking extends React.Component {
       startDate,
       endDate,
       daysBooked: days || 1,
-      total: (day_rate * guestCount * days) + cleaning_fee + service_fee,
+      total: ((day_rate * days) + cleaning_fee + service_fee) * guestCount,
     });
   }
 
@@ -116,16 +117,17 @@ class Booking extends React.Component {
       endDate,
       focusedInput,
       total,
+      stars,
     } = this.state;
 
     return (
       <div className="container">
         <div className="price-review">
           <Price {...this.state} />
-          <Reviews reviews={review_count} />
+          <Reviews reviews={review_count} stars={stars} />
         </div>
         <Calendar
-          focusedInput={focusedInput}
+          focusedInputData={focusedInput}
           startDate={startDate}
           startDateId="start-date"
           endDate={endDate}
