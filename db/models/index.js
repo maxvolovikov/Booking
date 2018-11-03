@@ -99,5 +99,9 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    stars: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
   }),
 };

@@ -32,6 +32,7 @@ module.exports.generate = {
       listing.avg_weekly_views = module.exports.generate.numberGenerator(45, 500);
       listing.avg_monthly_views = module.exports.generate.numberGenerator(200, 1200);
       listing.total_views = module.exports.generate.numberGenerator(600, 7800);
+      listing.stars = module.exports.generate.numberGenerator(1, 5);
       module.exports.listings.push(listing);
     }
   },
