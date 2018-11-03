@@ -8,13 +8,17 @@ const Guests = ({ handleGuestCountChange, maxGuests, guestCount }) => {
   };
 
   for (let i = 1; i <= maxGuests;) {
-    options.push(<option key={i} value={i}>{i}</option>);
+    if (i === 1) {
+      options.push(<option key={i} value={i}>{i} guest</option>);
+    } else {
+      options.push(<option key={i} value={i}>{i} guests</option>);
+    }
     i += 1;
   }
 
   return (
-    <div>
-      <h3>Guests App</h3>
+    <div className="guest">
+      <div className="label">Guests</div>
       <select className="guest-dropdown" onChange={handleChange} value={guestCount}>
         {options}
       </select>
