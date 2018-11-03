@@ -10,7 +10,6 @@ const Price = ({
   total,
 }) => (
   <div className="price">
-    <h3>Price Display</h3>
     <div className="rate">${day_rate} per night</div>
     <div className="fee">Cleaning: ${cleaning_fee}</div>
     <div className="fee">Service: ${service_fee}</div>

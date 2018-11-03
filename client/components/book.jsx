@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const Book = ({ handleOnSubmit }) => (
   <div>
-    <h3>Book Button</h3>
     <button className="book-button" type="submit" onClick={handleOnSubmit}>Book</button>
+    <div className="book-text">You wont be charged yet</div>
   </div>
 );
 

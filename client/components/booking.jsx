@@ -120,8 +120,10 @@ class Booking extends React.Component {
 
     return (
       <div className="container">
-        <Price {...this.state} />
-        <Reviews reviews={review_count} />
+        <div className="price-review">
+          <Price {...this.state} />
+          <Reviews reviews={review_count} />
+        </div>
         <Calendar
           focusedInput={focusedInput}
           startDate={startDate}
