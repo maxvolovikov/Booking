@@ -11,6 +11,7 @@ module.exports = new Sequelize(config.database, config.user, config.password, {
   host: config.host,
   dialect: 'mysql',
   operatorsAliases: false,
+  logging: false,
 
   pool: {
     max: 5,

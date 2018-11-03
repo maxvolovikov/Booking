@@ -20,4 +20,10 @@ const insertSampleData = () => {
     });
 };
 
+seedData.generate.users(20);
+seedData.generate.customers(15);
+seedData.generate.listings(100);
+seedData.generate.bookings(50);
 insertSampleData();
+
+module.exports = insertSampleData;

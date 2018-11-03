@@ -19,6 +19,7 @@ module.exports = {
       allowNull: false,
       unique: true,
       primaryKey: true,
+      autoIncrement: true,
     },
     listing_id: {
       type: Sequelize.INTEGER,
@@ -71,6 +72,10 @@ module.exports = {
       allowNull: false,
     },
     day_rate: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    cleaning_fee: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
