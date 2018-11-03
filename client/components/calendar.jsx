@@ -13,7 +13,7 @@ const Calendar = ({
   endDateId,
   handleDatesChange,
   handleFocusChange,
-  focusedInput,
+  focusedInputData,
 }) => {
   const onFocusChange = (val) => {
     handleFocusChange(val);
@@ -32,7 +32,7 @@ const Calendar = ({
         endDate={endDate}
         endDateId={endDateId || 'end-date'}
         onDatesChange={val => onDatesChange(val)}
-        focusedInput={focusedInput}
+        focusedInput={focusedInputData}
         onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
         inputIconPosition={ICON_BEFORE_POSITION}
         showDefaultInputIcon
@@ -49,14 +49,14 @@ Calendar.propTypes = {
   endDate: momentPropTypes.momentObj,
   endDateId: PropTypes.string.isRequired,
   handleDatesChange: PropTypes.func.isRequired,
-  focusedInput: PropTypes.oneOf([null, 'startDate', 'endDate']),
+  focusedInputData: PropTypes.oneOf([null, 'startDate', 'endDate']),
   handleFocusChange: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
   startDate: null,
   endDate: null,
-  focusedInput: null,
+  focusedInputData: null,
 };
 
 export default Calendar;
