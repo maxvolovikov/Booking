@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Book = ({ handleOnSubmit }) => (
   <div>
     <button className="book-button" type="submit" onClick={handleOnSubmit}>Book</button>
-    <div className="book-text">You wont be charged yet</div>
+    <div className="book-text">You won&#39;t be charged yet</div>
   </div>
 );
 
