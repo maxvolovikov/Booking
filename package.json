@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint ./",
-    "start": "nodemon server/index.js",
+    "start": "nodemon server/server.js",
     "react-dev": "webpack -d --watch",
     "db:setup": "node db/seeders/seed.js",
     "test": "jest --env=jsdom"
@@ -37,6 +37,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.4",
     "babel-preset-jest": "^23.2.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
@@ -47,9 +48,11 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
+    "mocha": "^5.2.0",
     "regenerator-runtime": "^0.12.1",
     "sinon": "^7.1.1",
     "style-loader": "^0.23.1",
+    "supertest": "^3.3.0",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
   },
