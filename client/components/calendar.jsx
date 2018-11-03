@@ -14,6 +14,7 @@ const Calendar = ({
   handleDatesChange,
   handleFocusChange,
   focusedInputData,
+  isDayBlocked,
 }) => {
   const onFocusChange = (val) => {
     handleFocusChange(val);
@@ -38,6 +39,8 @@ const Calendar = ({
         showDefaultInputIcon
         startDatePlaceholderText="Check in"
         endDatePlaceholderText="Check out"
+        isDayBlocked={isDayBlocked}
+        block
       />
     </div>
   );
@@ -51,12 +54,14 @@ Calendar.propTypes = {
   handleDatesChange: PropTypes.func.isRequired,
   focusedInputData: PropTypes.oneOf([null, 'startDate', 'endDate']),
   handleFocusChange: PropTypes.func.isRequired,
+  isDayBlocked: PropTypes.func,
 };
 
 Calendar.defaultProps = {
   startDate: null,
   endDate: null,
   focusedInputData: null,
+  isDayBlocked: () => false,
 };
 
 export default Calendar;
