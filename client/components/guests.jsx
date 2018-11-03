@@ -9,9 +9,21 @@ const Guests = ({ handleGuestCountChange, maxGuests, guestCount }) => {
 
   for (let i = 1; i <= maxGuests;) {
     if (i === 1) {
-      options.push(<option key={i} value={i}>{i} guest</option>);
+      options.push(
+        <option key={i} value={i}>
+          {i}
+          {' '}
+          guest
+        </option>,
+      );
     } else {
-      options.push(<option key={i} value={i}>{i} guests</option>);
+      options.push(
+        <option key={i} value={i}>
+          {i}
+          {' '}
+          guests
+        </option>,
+      );
     }
     i += 1;
   }
