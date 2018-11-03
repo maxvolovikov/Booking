@@ -9,9 +9,7 @@ import {
   mount,
   configure,
 } from 'enzyme';
-
-// import sinon from 'sinon';
-import { expect } from 'chai';
+import moment from 'moment';
 
 import Book from '../client/components/book';
 import Booking from '../client/components/booking';
@@ -19,7 +17,6 @@ import Calendar from '../client/components/calendar';
 import Guests from '../client/components/guests';
 import Price from '../client/components/price';
 import Reviews from '../client/components/reviews';
-
 
 configure({ adapter: new Adapter() });
 
@@ -30,18 +27,21 @@ describe('<Booking />', () => {
   });
 
   it('contains Book, Calendar, Guest, Price, and Review components', () => {
-    expect(w.contains(Book)).to.be.true;
-    expect(w.contains(Calendar)).to.be.true;
-    expect(w.contains(Guests)).to.be.true;
-    expect(w.contains(Price)).to.be.true;
-    expect(w.contains(Reviews)).to.be.true;
+    expect(w.contains(Book)).toBe(true);
+    expect(w.contains(Calendar)).toBe(true);
+    expect(w.contains(Guests)).toBe(true);
+    expect(w.contains(Price)).toBe(true);
+    expect(w.contains(Reviews)).toBe(true);
   });
 });
 
 describe('<Calendar />', () => {
   let w;
+  const date = moment(new Date());
   beforeEach(() => {
     w = mount(<Calendar
+      startDate={date}
+      endDate={date}
       startDateId="start-date"
       endDateId="end-date"
       handleDatesChange={() => {}}
@@ -50,26 +50,36 @@ describe('<Calendar />', () => {
   });
 
   it('has DateRangePicker component', () => {
-    expect(w.contains(DateRangePicker)).to.be.true;
+    expect(w.contains(DateRangePicker)).toBe(true);
+  });
+
+  it('is passed a startDate', () => {
+    expect(w.props().startDate).toBe(date);
+  });
+
+  it('is passed an endDate', () => {
+    expect(w.props().endDate).toBe(date);
   });
 });
 
 describe('<Book />', () => {
-  let wrapper;
+  let w;
   beforeEach(() => {
-    wrapper = mount(<Book />);
+    w = mount(<Book handleOnSubmit={jest.fn(() => {})} />);
   });
 
   it('has Book Button', () => {
-    expect(wrapper.find('button').hasClass('book-button')).to.equal(true);
+    expect(w.find('button').hasClass('book-button')).toBe(true);
   });
 
   it('is passed a handleOnSubmit props function', () => {
-    expect(wrapper.props().handleOnSubmit).to.be.a('function');
+    expect(typeof w.props().handleOnSubmit).toBe('function');
   });
 
-  // it('has clickable Button which triggers handleOnSubmit function', () => {
-  // });
+  it('has clickable Button which triggers handleOnSubmit function', () => {
+    w.find('button').simulate('click');
+    expect(w.props().handleOnSubmit).toHaveBeenCalled();
+  });
 });
 
 describe('<Guests />', () => {
@@ -79,6 +89,6 @@ describe('<Guests />', () => {
   });
 
   it('has guest dropdown menu', () => {
-    expect(w.find('.guest-dropdown')).to.have.lengthOf(1);
+    expect(w.find('.guest-dropdown')).toBeTruthy();
   });
 });
