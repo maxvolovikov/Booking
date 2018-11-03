@@ -25,7 +25,7 @@ const Calendar = ({
 
   return (
     <div className="calendar">
-      <h3>Calendar App</h3>
+      <div className="label">Dates</div>
       <DateRangePicker
         startDate={startDate}
         startDateId={startDateId || 'start-date'}
@@ -36,8 +36,8 @@ const Calendar = ({
         onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
         inputIconPosition={ICON_BEFORE_POSITION}
         showDefaultInputIcon
-        startDatePlaceholderText="Check In"
-        endDatePlaceholderText="Check Out"
+        startDatePlaceholderText="Check in"
+        endDatePlaceholderText="Check out"
       />
     </div>
   );
