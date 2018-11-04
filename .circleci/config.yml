@@ -1,36 +1,42 @@
 version: 2 # use CircleCI 2.0
-jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
-    working_directory: ~/mern-starter # directory where steps will run
-    docker: # run the steps with Docker
-      - image: circleci/node:4.8.2 # ...with this image as the primary container; this is where all `steps` will run
-      - image: mysql:5.7 # and this image as the secondary service container
+jobs:
+  build:
+    working_directory: ~/mern-starter
+    docker:
+      - image: circleci/node:4.8.2
         environment:
-          MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: password
-    steps: # a collection of executable commands 
-      - checkout # special step to check out source code to working directory
+          MYSQL_HOST: 127.0.0.1
+          
+      - image: mysql:5.7
+
+    steps:
+      - checkout
+      
       - run:
-          name: update-npm 
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache: # special step to restore the dependency cache 
-          key: dependency-cache-{{ checksum "package.json" }}
+          name: npm-update-install 
+          command: |
+            sudo npm install -g npm@latest
+
       - run:
-          name: install-npm-wee
-          command: 'sudo npm install'
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
+          name: Fix MySQL socket config
+          command: |
+            sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+
       - run:
           name: Mysql database
-          command: mysql -h 127.0.0.1 -u root -p password -e "create database airjld;"
+          command: |
+          sudo service mysql start
+          mysql -h 127.0.0.1 -u root -p password -e "create database airjld;"
+
       - run: # setup databases
           name: database-setup
           command: npm run db:setup
+
       - run: # run tests
           name: test
           command: npm test
+          
       - run: # run coverage report
           name: code-coverage
           command: './node_modules/.bin/nyc report --reporter=text-lcov'
