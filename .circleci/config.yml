@@ -22,11 +22,14 @@ jobs:
           name: Fix MySQL socket config
           command: |
             sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
-
+      - run:
+          name: start database
+          command: |
+          sudo service mysql start
+          
       - run:
           name: Mysql database
           command: |
-          sudo service mysql start
           mysql -h 127.0.0.1 -u root -p password -e "create database airjld;"
 
       - run: # setup databases
