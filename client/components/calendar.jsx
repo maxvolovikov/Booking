@@ -1,5 +1,5 @@
 import 'react-dates/initialize';
-// import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/lib/css/_datepicker.css';
 
 import React from 'react';
 import { DateRangePicker, ICON_BEFORE_POSITION } from 'react-dates';
@@ -13,7 +13,8 @@ const Calendar = ({
   endDateId,
   handleDatesChange,
   handleFocusChange,
-  focusedInput,
+  focusedInputData,
+  isDayBlocked,
 }) => {
   const onFocusChange = (val) => {
     handleFocusChange(val);
@@ -32,12 +33,14 @@ const Calendar = ({
         endDate={endDate}
         endDateId={endDateId || 'end-date'}
         onDatesChange={val => onDatesChange(val)}
-        focusedInput={focusedInput}
+        focusedInput={focusedInputData}
         onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
         inputIconPosition={ICON_BEFORE_POSITION}
         showDefaultInputIcon
         startDatePlaceholderText="Check in"
         endDatePlaceholderText="Check out"
+        isDayBlocked={isDayBlocked}
+        block
       />
     </div>
   );
@@ -49,14 +52,16 @@ Calendar.propTypes = {
   endDate: momentPropTypes.momentObj,
   endDateId: PropTypes.string.isRequired,
   handleDatesChange: PropTypes.func.isRequired,
-  focusedInput: PropTypes.oneOf([null, 'startDate', 'endDate']),
+  focusedInputData: PropTypes.oneOf([null, 'startDate', 'endDate']),
   handleFocusChange: PropTypes.func.isRequired,
+  isDayBlocked: PropTypes.func,
 };
 
 Calendar.defaultProps = {
   startDate: null,
   endDate: null,
-  focusedInput: null,
+  focusedInputData: null,
+  isDayBlocked: () => false,
 };
 
 export default Calendar;

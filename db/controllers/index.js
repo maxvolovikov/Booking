@@ -7,9 +7,7 @@ const {
 
 module.exports.user = {
   get: (userId => User.findOne({
-    where: {
-      id: userId,
-    },
+    where: { id: userId },
   })
     .then(user => user)
     .catch((err) => { throw err; })
@@ -18,9 +16,7 @@ module.exports.user = {
 
 module.exports.customer = {
   get: (customerId => Customer.findOne({
-    where: {
-      id: customerId,
-    },
+    where: { id: customerId },
   })
     .then(customer => customer)
     .catch((err) => { throw err; })
@@ -29,12 +25,8 @@ module.exports.customer = {
 
 module.exports.listing = {
   get: (listingId => Listing.findOne({
-    where: {
-      id: listingId,
-    },
-    attributes: {
-      exclude: ['createdAt', 'updatedAt'],
-    },
+    where: { id: listingId },
+    attributes: { exclude: ['createdAt', 'updatedAt'] },
   })
     .then(data => data)
     .catch((err) => { throw err; })
@@ -42,17 +34,17 @@ module.exports.listing = {
 };
 
 module.exports.booking = {
-  get: (bookingId => Booking.findOne({
-    where: {
-      id: bookingId,
-    },
-    attributes: {
-      exclude: ['createdAt', 'updatedAt'],
-    },
-  })
-    .then(data => data)
-    .catch((err) => { throw err; })
-  ),
+  get: ((key, val) => {
+    const search = {};
+    search[key] = val;
+
+    return Booking.findOne({
+      where: search,
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+    })
+      .then(data => data)
+      .catch((err) => { throw err; });
+  }),
   set: ((data) => {
     const booking = {};
 
@@ -61,11 +53,15 @@ module.exports.booking = {
     });
 
     return Booking.create(booking)
-      .then(() => {
-        console.log('Booking saved to the database');
-      })
-      .catch(() => {
-        console.error('Error: Creating new booking entry');
-      });
+      .then(() => { console.log('Booking saved to the database'); })
+      .catch(() => { console.error('Error: Creating new booking entry'); });
+  }),
+  delete: ((key, value) => {
+    const search = {};
+    search[key] = value;
+
+    return Booking.destroy({ where: search })
+      .then(() => { console.log(`Booking with ${key} of ${value} successfully deleted`); })
+      .catch(() => { console.error(`Error deleting booking with ${key} of ${value} `); });
   }),
 };
