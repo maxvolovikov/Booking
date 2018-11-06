@@ -1,35 +1,56 @@
 version: 2 # use CircleCI 2.0
 jobs:
   build:
-    working_directory: ~/mern-starter
+    working_directory: ~/repo
     docker:
-      - image: circleci/node:4.8.2
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
-          
-      - image: mysql:5.7
+      - image: circleci/node:8.12
+      - image: delayed-mysql
+          environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_DATABASE: airjld
+
+    #   - image: mysql:5.7
+    #       environment:
+    #       MYSQL_ROOT_LOGIN: root
+    #       MYSQL_ROOT_PASSWORD: password
+    #       MYSQL_HOST: 127.0.0.1
 
     steps:
       - checkout
-      
-      - run:
-          name: npm install 
+
+      - run: # update npm dependencies
+          name: update-npm 
+          command: 'sudo npm install -g npm@latest'
+
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      - run: # install dependencies
+          name: install-npm-wee
           command: npm install
 
-      - run:
-          name: Mysql database
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      
+      - run: # wait for db connection
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3000 -timeout 1m
+    
+      - run: #connect to mysql and create database 
+          name: create database
           command: mysql -h 127.0.0.1 -u root -p password -e "create database airjld;"
 
-      - run:
-          name: database-setup
+      - run: #setup database with dummy files
+          name: seed database
           command: npm run db:setup
 
-      - run:
-          name: run tests
+      - run: # run tests
+          name: test
           command: npm test
           
-      - run:
+      - run: # code coverage
           name: code-coverage
           command: './node_modules/.bin/nyc report --reporter=text-lcov'
 
