@@ -34,13 +34,13 @@ jobs:
           paths:
             - ./node_modules
       
-      - run: # wait for db connection
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:3000 -timeout 1m
+    #   - run: # wait for db connection
+    #       name: Wait for db
+    #       command: dockerize -wait tcp://localhost:3000 -timeout 1m
     
       - run: #connect to mysql and create database 
           name: create database
-          command: mysql -h 127.0.0.1 -u root -p password -e "create database airjld;"
+          command: mysql -u root -p password -e "create database airjld;"
 
       - run: #setup database with dummy files
           name: seed database
