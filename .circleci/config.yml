@@ -31,7 +31,7 @@ jobs:
       - run: #setup database with dummy files
           name: seed database
           command: npm run db:setup
-
+        
       - run: # run tests
           name: test
           command: npm test
