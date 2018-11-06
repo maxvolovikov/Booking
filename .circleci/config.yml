@@ -9,12 +9,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: 'password'
           MYSQL_DATABASE: airjld
 
-    #   - image: mysql:5.7
-    #       environment:
-    #       MYSQL_ROOT_LOGIN: root
-    #       MYSQL_ROOT_PASSWORD: password
-    #       MYSQL_HOST: 127.0.0.1
-
     steps:
       - checkout
 
@@ -33,16 +27,6 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      
-    #   - run: # wait for db connection
-    #       name: Wait for db
-    #       command: dockerize -wait tcp://localhost:3000 -timeout 1m
-    #   - run: 
-    #       name: check mysql status
-    #       command: service mysql status 
-    #   - run: #connect to mysql and create database 
-    #       name: create database
-    #       command: mysql -u root -p -e "create database airjld;"
 
       - run: #setup database with dummy files
           name: seed database
@@ -51,18 +35,3 @@ jobs:
       - run: # run tests
           name: test
           command: npm test
-          
-    #   - run: # code coverage
-    #       name: code-coverage
-    #       command: './node_modules/.bin/nyc report --reporter=text-lcov'
-
-      - store_artifacts: # special step to save test results as as artifact
-          path: test-results.xml
-          prefix: tests
-
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
-
-      - store_test_results: # special step to upload test results for display in Test Summary
-          path: test-results.xml  
