@@ -25,6 +25,8 @@ Point your browser here to interact with the live module
 http://localhost:3000
 ```
 
+Server port is located in <root directory>/server/server.js
+
 ## Requirements
 
 This project requires MySQL 5.7 and Node v8.12
