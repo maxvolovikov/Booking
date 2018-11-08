@@ -45,13 +45,7 @@ Download dependencies by running
 npm install
 ```
 
-**NOTE: You must manually create a database in MySQL before seeding the database**
-Open MySQL and type
-```
-create database airjld;
-```
-
-After this you can seed the database with mock data via
+Seed the database with mock data via
 ```
 npm run db:setup
 ```
