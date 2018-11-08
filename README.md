@@ -45,14 +45,15 @@ Download dependencies by running
 npm install
 ```
 
-Seed database with mock data
-```
-npm run db:setup
-```
-**NOTE: This will not setup a database. You will have to manually create a database in MySQL. 
-Open MySQL and type and then run db:setup.
+**NOTE: You must manually create a database in MySQL before seeding the database**
+Open MySQL and type
 ```
 create database airjld;
+```
+
+After this you can seed the database with mock data via
+```
+npm run db:setup
 ```
 
 This project has CircleCI so manually running tests shouldn't be necessary, but if you would like to run:
@@ -67,6 +68,7 @@ npm run lint
 
 As this project is written in ES6 and JSX you will need to use babel to transpile this syntax down to ES5. 
 Webpack/Babel is setup as a dependency so make sure to run this command before you began coding
+Note: This has a watch flag enabled
 ```
 npm run react-dev
 ```
