@@ -8,7 +8,8 @@ const seedData = require('../seeders/data.js');
 const db = require('../index.js');
 
 const insertSampleData = () => {
-  db.sync()
+  db.query('CREATE DATABASE IF NOT EXISTS airjld;')
+    .then(() => db.sync({ force: true }))
     .then(() => User.bulkCreate(seedData.users))
     .then(() => Listing.bulkCreate(seedData.listings))
     .then(() => Customer.bulkCreate(seedData.customers))
