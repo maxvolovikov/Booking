@@ -15,7 +15,10 @@ Booking and availability module
 3. [Development](#development)
 
 ## Usage
-To see this module in action you will need to began a localhost node server by using the command
+To see this module in action you will need to began a localhost node server. It is currently setup to point at <localhost:3000>. 
+If you wish to make changes the file is located at '/server/server.js'
+
+Run to start node.js server
 ```
 npm start
 ```
@@ -24,8 +27,6 @@ Point your browser here to interact with the live module
 ```
 http://localhost:3000
 ```
-
-Server port is located in <root directory>/server/server.js
 
 ## Requirements
 
@@ -47,6 +48,11 @@ npm install
 Seed database with mock data
 ```
 npm run db:setup
+```
+**NOTE: This will not setup a database. You will have to manually create a database in MySQL. 
+Open MySQL and type and then run db:setup.
+```
+create database airjld;
 ```
 
 This project has CircleCI so manually running tests shouldn't be necessary, but if you would like to run:
