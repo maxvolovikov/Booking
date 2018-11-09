@@ -12,7 +12,7 @@
     "react-dev": "webpack -d --watch",
     "db:setup": "node db/seeders/seed.js",
     "test": "jest --env=jsdom",
-    "poststart": "node db/seeders/seed.js"
+    "prestart": "node db/seeders/seed.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
