@@ -55,8 +55,16 @@
   font-size: 10px;
   line-height: 16px;
   letter-spacing: normal;
-  color: #484848;
+  color: #008489;
   display: inline;
+}
+
+.start span.reviews {
+  color: #484848;
+}
+
+.stars svg {
+  fill: #008489;
 }
 
 .calendar {
