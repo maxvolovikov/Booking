@@ -1,14 +1,14 @@
 {
   "name": "airjld-booking-module",
   "description": "booking module for airjld",
-  "author": "",
+  "author": "josh",
   "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
     "lint": "eslint ./",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "react-dev": "webpack -d --watch",
     "db:setup": "node db/seeders/seed.js",
     "test": "jest --env=jsdom"
