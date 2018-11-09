@@ -21,23 +21,3 @@ module.exports = new Sequelize(config.database, config.user, config.password, {
     idle: 10000,
   },
 });
-
-// CODE FOR VANILLA MYSQL SETUP
-// const mysql = require('mysql2');
-// mysql.createConnection()
-
-// connection.connect((err) => {
-//   if (err) {
-//     // console.log(err)
-//     connection.query(`CREATE DATABASE IF NOT EXISTS ${connection.database}`, (err, result) => {
-//       if (err) {
-//         throw err;
-//       } else {
-//         console.log("Database created");
-//       }
-//     })
-//   } else {
-//     console.log("Connected to DATABASE!");
-//   }
-// });
-//
