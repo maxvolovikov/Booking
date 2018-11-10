@@ -3,27 +3,27 @@ const moment = require('moment');
 
 module.exports.generate = {
   numberGenerator: (min, max) => Math.floor(Math.random() * (max - min + min)) + min,
-  users: (num) => {
-    for (let i = 1; i <= num; i += 1) {
+  users: (users) => {
+    for (let i = 1; i <= users; i += 1) {
       const user = {};
       user.id = i;
       user.name = faker.name.findName();
       module.exports.users.push(user);
     }
   },
-  customers: (num) => {
-    for (let i = 1; i <= num; i += 1) {
+  customers: (customers) => {
+    for (let i = 1; i <= customers; i += 1) {
       const customer = {};
       customer.id = i;
       customer.name = faker.name.findName();
       module.exports.customers.push(customer);
     }
   },
-  listings: (num) => {
-    for (let i = 1; i <= num; i += 1) {
+  listings: (listings, users) => {
+    for (let i = 1; i <= listings; i += 1) {
       const listing = {};
       listing.id = i;
-      listing.owner_id = module.exports.generate.numberGenerator(1, 20);
+      listing.owner_id = module.exports.generate.numberGenerator(1, users);
       listing.review_count = module.exports.generate.numberGenerator(3, 500);
       listing.day_rate = module.exports.generate.numberGenerator(45, 500);
       listing.cleaning_fee = module.exports.generate.numberGenerator(50, 200);
@@ -36,14 +36,14 @@ module.exports.generate = {
       module.exports.listings.push(listing);
     }
   },
-  bookings: (num) => {
-    for (let i = 1; i <= num; i += 1) {
+  bookings: (bookings, listings, customers) => {
+    for (let i = 1; i <= bookings; i += 1) {
       const booking = {};
       const today = moment();
       const start = faker.date.between(today, today.add(module.exports.generate.numberGenerator(1, 90), 'days'));
       const end = moment(start).add(module.exports.generate.numberGenerator(1, 15), 'days');
-      booking.listing_id = module.exports.generate.numberGenerator(1, 100);
-      booking.customer_id = module.exports.generate.numberGenerator(1, 15);
+      booking.listing_id = module.exports.generate.numberGenerator(1, listings);
+      booking.customer_id = module.exports.generate.numberGenerator(1, customers);
       booking.start_date = start;
       booking.end_date = end;
       booking.total_cost = module.exports.generate.numberGenerator(150, 1800);
