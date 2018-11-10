@@ -18,15 +18,15 @@ test('Should create a valid customer', () => {
 });
 
 test('Should create a valid listing', () => {
-  data.generate.listings(1);
+  data.generate.listings(1, 1);
   expect(data.listings[0].id).toBe(1);
   expect(data.listings[0].max_guests).toBeLessThanOrEqual(15);
   expect(data.listings[0].owner_id.toBeDefined);
 });
 
 test('Should create a valid booking', () => {
-  data.generate.bookings(1);
+  data.generate.bookings(1, 1, 1);
   expect(typeof data.bookings[0].total_cost).toBe('number');
-  expect(data.bookings[0].customer_id).toBeLessThanOrEqual(15);
+  expect(typeof data.bookings[0].customer_id).toBe('number');
   expect(data.bookings[0].host_booking).toBe(false);
 });

@@ -15,7 +15,7 @@ class Booking extends React.Component {
   constructor() {
     super();
     this.state = {
-      customerId: this.chooseRandom(200),
+      customerId: this.chooseRandom(1, 200),
       guestCount: 1,
       daysBooked: 1,
       startDate: null,
@@ -31,14 +31,14 @@ class Booking extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/rooms/${this.chooseRandom(1000)}`)
+    fetch(`/rooms/${this.chooseRandom(1, 1000)}`)
       .then(res => res.json())
       .then((listing) => { this.setState(listing); })
       .catch((err) => { throw err; });
   }
 
-  chooseRandom(max) {
-    this.rand = Math.floor(Math.random() * (max - 1 + 1)) + 1;
+  chooseRandom(min, max) {
+    this.rand = Math.floor(Math.random() * (max - min + 1) + min);
     return this.rand;
   }
 
