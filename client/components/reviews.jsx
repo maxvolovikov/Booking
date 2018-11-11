@@ -24,6 +24,7 @@ const Reviews = ({ reviews, stars }) => {
           {reviews}
         </span>
       </div>
+      <div className="line-break" />
     </div>
   );
 };

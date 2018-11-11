@@ -10,6 +10,7 @@ import Guest from './guests';
 import Book from './book';
 import Reviews from './reviews';
 import Price from './price';
+import Subtotal from './subtotal';
 
 class Booking extends React.Component {
   constructor() {
@@ -17,7 +18,7 @@ class Booking extends React.Component {
     this.state = {
       customerId: this.chooseRandom(1, 200),
       guestCount: 1,
-      daysBooked: 1,
+      daysBooked: 0,
       startDate: null,
       endDate: null,
       focusedInput: null,
@@ -118,12 +119,14 @@ class Booking extends React.Component {
       focusedInput,
       total,
       stars,
+      day_rate,
+      daysBooked,
     } = this.state;
 
     return (
       <div className="container">
         <div className="price-review">
-          <Price {...this.state} />
+          <Price day_rate={day_rate} />
           <Reviews reviews={review_count} stars={stars} />
         </div>
         <Calendar
@@ -140,6 +143,7 @@ class Booking extends React.Component {
           guestCount={guestCount}
           handleGuestCountChange={this.handleGuestCountChange}
         />
+        {total > 0 && daysBooked > 0 ? <Subtotal {...this.state} /> : null}
         <Book total={total} handleOnSubmit={this.handleOnSubmit} />
       </div>
     );

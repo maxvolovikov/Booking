@@ -15,7 +15,7 @@ const genAmountOf = {
 };
 
 const insertSampleData = () => {
-  db.query('CREATE DATABASE IF NOT EXISTS airjld;')
+  db.query(`CREATE DATABASE IF NOT EXISTS ${process.env.RDS_DB_NAME || 'airjld'};`)
     .then(() => db.sync({ force: true }))
     .then(() => User.bulkCreate(seedData.users))
     .then(() => Listing.bulkCreate(seedData.listings))

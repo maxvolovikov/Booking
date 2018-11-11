@@ -1,8 +1,8 @@
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-
+import '../styles/react_dates_overrides.css';
 import React from 'react';
-import { DateRangePicker, ICON_BEFORE_POSITION } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 import momentPropTypes from 'react-moment-proptypes';
 import PropTypes from 'prop-types';
 
@@ -35,8 +35,6 @@ const Calendar = ({
         onDatesChange={val => onDatesChange(val)}
         focusedInput={focusedInputData}
         onFocusChange={(focusedInput) => { onFocusChange(focusedInput); }}
-        inputIconPosition={ICON_BEFORE_POSITION}
-        showDefaultInputIcon
         startDatePlaceholderText="Check in"
         endDatePlaceholderText="Check out"
         isDayBlocked={isDayBlocked}
