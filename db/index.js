@@ -4,7 +4,7 @@ const config = {
   host: process.env.RDS_HOSTNAME || 'localhost',
   database: process.env.RDS_DB_NAME || 'airjld',
   user: process.env.RDS_USERNAME || 'root',
-  password: process.env.RDS_PASSWORD || 'password',
+  password: process.env.RDS_PASSWORD || '',
   port: process.env.RDS_PORT,
 };
 

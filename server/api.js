@@ -10,6 +10,7 @@ app.use(express.json());
 app.get('/users/:userId', (req, res) => {
   db.user.get(req.params.userId)
     .then((data) => {
+      console.log('USERS', data);
       if (data) {
         res.send(data.name).end();
       } else {
@@ -22,6 +23,7 @@ app.get('/users/:userId', (req, res) => {
 app.get('/customers/:customerId', (req, res) => {
   db.customer.get(req.params.customerId)
     .then((data) => {
+      console.log('CUSTOMER', data);
       if (data) {
         res.send(data.name).end();
       } else {
@@ -35,6 +37,7 @@ app.get('/rooms/:listingId', (req, res) => {
   db.listing.get(req.params.listingId)
     .then((data) => {
       if (data) {
+        console.log('ROOMS', data);
         res.send(data).end();
       } else {
         res.status(404).send('No listing found').end();

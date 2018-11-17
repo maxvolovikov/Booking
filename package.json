@@ -8,9 +8,9 @@
   },
   "scripts": {
     "lint": "eslint ./",
-    "start": "node server/server.js",
-    "react-dev": "webpack -d --watch",
-    "db:setup": "node db/seeders/seed.js",
+    "start": "nodemon server/server.js",
+    "dev": "webpack -d --watch",
+    "seed": "node db/seeders/seed.js",
     "test": "jest --env=jsdom",
     "prestart": "node db/seeders/seed.js"
   },

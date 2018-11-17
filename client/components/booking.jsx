@@ -34,7 +34,10 @@ class Booking extends React.Component {
   componentDidMount() {
     fetch(`/rooms/${this.chooseRandom(1, 1000)}`)
       .then(res => res.json())
-      .then((listing) => { this.setState(listing); })
+      .then((listing) => {
+        console.log('LISTING =====================>', listing);
+        this.setState(listing);
+      })
       .catch((err) => { throw err; });
   }
 
@@ -99,6 +102,7 @@ class Booking extends React.Component {
       total_cost: total,
       host_booking: false,
     };
+    console.log(this.booking);
 
     fetch('/booking', {
       method: 'POST',
