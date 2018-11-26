@@ -1,4 +1,17 @@
-//TEMPLATES
+// TEMPLATES
+
+// var list = {
+//   id: 0,
+//   oid: 0,
+//   rc: 0,
+//   ar: 0,
+//   dr: 0,
+//   sf: 0,
+//   cf: 0,
+//   mg: 0,
+// };
+
+
 // var listing = {
 //   id: 0,
 //   owner_id: 0,

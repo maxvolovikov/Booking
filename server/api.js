@@ -7,8 +7,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', '/public')));
 app.use(express.json());
 
-app.get('/users/:userId', (req, res) => {
-  db.user.get(req.params.userId)
+app.get('/users/:uId', (req, res) => {
+  db.user.get(req.params.uId)
     .then((data) => {
       console.log('USERS', data);
       if (data) {
@@ -20,8 +20,8 @@ app.get('/users/:userId', (req, res) => {
     .catch((err) => { throw err; });
 });
 
-app.get('/customers/:customerId', (req, res) => {
-  db.customer.get(req.params.customerId)
+app.get('/customers/:cId', (req, res) => {
+  db.customer.get(req.params.cId)
     .then((data) => {
       console.log('CUSTOMER', data);
       if (data) {
@@ -33,8 +33,8 @@ app.get('/customers/:customerId', (req, res) => {
     .catch((err) => { throw err; });
 });
 
-app.get('/rooms/:listingId', (req, res) => {
-  db.listing.get(req.params.listingId)
+app.get('/rooms/:lId', (req, res) => {
+  db.listing.get(req.params.lId)
     .then((data) => {
       if (data) {
         console.log('ROOMS', data);
@@ -45,8 +45,50 @@ app.get('/rooms/:listingId', (req, res) => {
     })
     .catch((err) => {
       console.error('Error: GET Req', err);
-      res.status(500).send(`Response Error getting listing ${req.params.listingId}`).end();
+      res.status(500).send(`Response Error getting listing ${req.params.lId}`).end();
     });
+});
+
+app.post('/rooms/:lId', (req, res) => {
+  db.listing.create({
+    id: req.params.lId,
+    oid: req.params.oid,
+    rc: req.params.rc,
+    ar: req.params.ar,
+    dr: req.params.dr,
+    sf: req.params.sf,
+    cf: req.params.cf,
+    mg: req.params.mg,
+  }).then(() => {
+    res.send('Listing successfully created!').end();
+  }).catch(() => {
+    res.status(500).send('Could not create Listing. Please try again').end();
+  });
+});
+
+app.put('/rooms/:lId', (req, res) => {
+  db.listing.update(
+    { cf: req.body.cf },
+    { dr: req.body.dr },
+    { mg: req.body.mg },
+    { rc: req.body.rc },
+  ).then(() => {
+    res.send('Listing successfully updated!').end();
+  }).catch(() => {
+    res.status(500).send('Could not update Listing. Please try again').end();
+  });
+});
+
+app.delete('/rooms/:lId', (req, res) => {
+  db.listing.destroy({
+    where: {
+      id: req.params.lId,
+    },
+  }).then(() => {
+    res.send('Listing successfully deleted!').end();
+  }).catch(() => {
+    res.status(500).send('Could not delete listing. Please try again').end();
+  });
 });
 
 app.post('/booking', (req, res) => {

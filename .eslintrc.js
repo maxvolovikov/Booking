@@ -14,4 +14,5 @@ module.exports = {
         'no-console': 'off',
         'react/jsx-filename-extension': [0],
     },
+    parser: 'babel-eslint'
 };
