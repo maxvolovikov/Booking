@@ -11,7 +11,7 @@
     "start": "nodemon server/server.js",
     "dev": "webpack -d --watch",
     "seed": "node db/seeders/seed.js",
-    "seedlistings": "node db/seed10m/seedList1; node db/seed10m/seedList2; node db/seed10m/seedList3; node db/seed10m/seedList4; node db/seed10m/seedList5",
+    "seedlistings": "node db/seed10m/seedList1; node db/seed10m/seedList2; node db/seed10m/seedList3; node db/seed10m/seedList4; node db/seed10m/seedList5; node db/seed10m/seedUsers; node db/seed10m/seedCustomers",
     "test": "jest --env=jsdom",
     "prestart": "node db/seeders/seed.js"
   },
