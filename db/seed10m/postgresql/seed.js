@@ -1,6 +1,6 @@
 const pg = require('pg');
 
-const connection = "postgress://@localhost:5432/listings";
+const connection = "postgress://@localhost:5432/airjld";
 const db = new pg.Client(connection);
 
 db.connect();
@@ -13,7 +13,7 @@ const users =
 
 const csvUsersSeed = `COPY users FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/users.csv' WITH (FORMAT csv)`;
 
-const createUsers = () => {
+const createUsersTable = () => {
   db.query(users)
     .then((res) => {
       console.log(res, 'users table created');
@@ -23,7 +23,7 @@ const createUsers = () => {
     });
 };
 
-const seedUsers = () => {
+const seedUsersTable = () => {
   db.query(csvUsersSeed)
     .then((res)=>{
       console.log(res, 'users table seeded');
@@ -33,8 +33,8 @@ const seedUsers = () => {
     });
 };
 
-createUsers();
-seedUsers();
+createUsersTable();
+seedUsersTable();
 
 const customers = 
 `CREATE TABLE IF NOT EXISTS customers (
@@ -44,7 +44,7 @@ const customers =
 
 const csvCustomersSeed = `COPY customers FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/customers.csv' WITH (FORMAT csv)`;
 
-const createCustomers = () => {
+const createCustomersTable = () => {
   db.query(customers)
     .then((res) => {
       console.log(res, 'Customers table created');
@@ -54,7 +54,7 @@ const createCustomers = () => {
     });
 };
 
-const seedCustomers = () => {
+const seedCustomersTable = () => {
   db.query(csvCustomersSeed)
     .then((res)=>{
       console.log(res, 'Customers table seeded');
@@ -64,8 +64,8 @@ const seedCustomers = () => {
     });
 };
 
-createCustomers();
-seedCustomers();
+createCustomersTable();
+seedCustomersTable();
 
 const listings = 
 `CREATE TABLE IF NOT EXISTS customers (
@@ -81,7 +81,7 @@ const listings =
 
 const csvListingsSeed = `COPY listings FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/listings.csv' WITH (FORMAT csv)`;
 
-const createListings = () => {
+const createListingsTable = () => {
   db.query(listings)
     .then((res) => {
       console.log(res, 'listings table created');
@@ -91,7 +91,7 @@ const createListings = () => {
     });
 };
 
-const seedListings = () => {
+const seedListingsTable = () => {
   db.query(csvListingsSeed)
     .then((res)=>{
       console.log(res, 'Listings table seeded');
@@ -101,5 +101,5 @@ const seedListings = () => {
     });
 };
 
-createListings();
-seedListings();
+createListingsTable();
+seedListingsTable();
