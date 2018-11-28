@@ -1,3 +1,4 @@
+/* eslint-disable */
 const pg = require('pg');
 
 const connection = "postgress://@localhost:5432/airjld";
@@ -10,8 +11,8 @@ const users =
   id bigint PRIMARY KEY,
   ssn varchar
 )`;
-
-const csvUsersSeed = `COPY users FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/users.csv' WITH (FORMAT csv)`;
+const csvUsersSeed = `COPY users FROM '${__dirname}/users.csv' WITH (FORMAT csv)`;
+// const csvUsersSeed = `COPY users FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/users.csv' WITH (FORMAT csv)`;
 
 const createUsersTable = () => {
   db.query(users)
@@ -42,7 +43,7 @@ const customers =
   ssn varchar
 )`;
 
-const csvCustomersSeed = `COPY customers FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/customers.csv' WITH (FORMAT csv)`;
+const csvCustomersSeed = `COPY customers FROM '${__dirname}/customers.csv' WITH (FORMAT csv)`;
 
 const createCustomersTable = () => {
   db.query(customers)
@@ -68,7 +69,7 @@ createCustomersTable();
 seedCustomersTable();
 
 const listings = 
-`CREATE TABLE IF NOT EXISTS customers (
+`CREATE TABLE IF NOT EXISTS listings (
   id bigint PRIMARY KEY, 
   owner bigint,
   review_count bigint,
@@ -79,7 +80,7 @@ const listings =
   max_guests bigint   
 )`;
 
-const csvListingsSeed = `COPY listings FROM '/Users/maxvolovikov/hrr/sdc/Booking/db/seed10m/listings.csv' WITH (FORMAT csv)`;
+const csvListingsSeed = `COPY listings FROM '${__dirname}/listings.csv' WITH (FORMAT csv)`;
 
 const createListingsTable = () => {
   db.query(listings)
