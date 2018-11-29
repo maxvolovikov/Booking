@@ -1,9 +1,7 @@
-/* eslint camelcase: "off" */
-
+/*eslint-disable*/
 import React from 'react';
 import fetch from 'node-fetch';
 import moment from 'moment';
-
 import '../../public/style.css';
 import Calendar from './calendar';
 import Guest from './guests';
@@ -32,11 +30,16 @@ class Booking extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/rooms/${this.chooseRandom(1, 1000)}`)
+    const id = Number(window.location.pathname.replace(/\//, ''));
+    fetch(`http://localhost:3002/rooms/${id}`)
       .then(res => res.json())
       .then((listing) => {
-        console.log('LISTING =====================>', listing);
-        this.setState(listing);
+        console.log('LISTING =====================>', listing.data);
+        const room = listing.data;
+        room.day_rate = Number(room.day_rate);
+        room.review_count = Number(room.review_count);
+        room.max_guests = Number(room.max_guests);
+        this.setState(room);
       })
       .catch((err) => { throw err; });
   }

@@ -1,11 +1,34 @@
 const express = require('express');
 const path = require('path');
 const db = require('../db/controllers/index');
+const pgdb = require('../db/seed10m/pgindex.js');
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, '..', '/public')));
 app.use(express.json());
+
+app.get('/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../public/index.html'))
+});
+
+app.get('/rooms/:id', pgdb.getSingleListing);
+
+// app.get('/rooms/:lId', (req, res) => {
+//   db.listing.get(req.params.lId)
+//     .then((data) => {
+//       if (data) {
+//         console.log('ROOMS', data);
+//         res.send(data).end();
+//       } else {
+//         res.status(404).send('No listing found').end();
+//       }
+//     })
+//     .catch((err) => {
+//       console.error('Error: GET Req', err);
+//       res.status(500).send(`Response Error getting listing ${req.params.lId}`).end();
+//     });
+// });
 
 app.get('/users/:uId', (req, res) => {
   db.user.get(req.params.uId)
@@ -31,22 +54,6 @@ app.get('/customers/:cId', (req, res) => {
       }
     })
     .catch((err) => { throw err; });
-});
-
-app.get('/rooms/:lId', (req, res) => {
-  db.listing.get(req.params.lId)
-    .then((data) => {
-      if (data) {
-        console.log('ROOMS', data);
-        res.send(data).end();
-      } else {
-        res.status(404).send('No listing found').end();
-      }
-    })
-    .catch((err) => {
-      console.error('Error: GET Req', err);
-      res.status(500).send(`Response Error getting listing ${req.params.lId}`).end();
-    });
 });
 
 app.post('/rooms/:lId', (req, res) => {

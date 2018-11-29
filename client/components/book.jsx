@@ -7,13 +7,10 @@ const Book = ({ handleOnSubmit }) => (
     <div className="book-text">You won&#39;t be charged yet</div>
   </div>
 );
-
 Book.propTypes = {
   handleOnSubmit: PropTypes.func,
 };
-
 Book.defaultProps = {
   handleOnSubmit: () => {},
 };
-
 export default Book;
