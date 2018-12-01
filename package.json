@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint ./",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "dev": "webpack -d --watch",
     "prod": "webpack -p --optimize-minimize",
     "seed": "node db/seeders/seed.js",

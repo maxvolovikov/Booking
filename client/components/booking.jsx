@@ -30,7 +30,9 @@ class Booking extends React.Component {
   }
 
   componentDidMount() {
-    const id = Number(window.location.pathname.replace(/\//, ''));
+    const numGen = (min, max) => Math.floor(Math.random() * (max - min + min)) + min;
+    const id = (Number(window.location.pathname.replace(/\//, ''))) ||  numGen(1000000, 5000000);
+    //fetch(`http://54.161.200.239//rooms/${id}`)
     fetch(`http://localhost:3002/rooms/${id}`)
       .then(res => res.json())
       .then((listing) => {

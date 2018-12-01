@@ -1,5 +1,5 @@
 /*eslint-disable*/
-require('newrelic');
+// require('newrelic');
 require('dotenv').config();
 
 const app = require('./api');
