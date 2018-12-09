@@ -36,7 +36,6 @@ class Booking extends React.Component {
     fetch(`http://localhost:3002/rooms/${id}`)
       .then(res => res.json())
       .then((listing) => {
-        console.log('LISTING =====================>', listing.data);
         const room = listing.data;
         room.day_rate = Number(room.day_rate);
         room.review_count = Number(room.review_count);
@@ -107,7 +106,6 @@ class Booking extends React.Component {
       total_cost: total,
       host_booking: false,
     };
-    console.log(this.booking);
 
     fetch('/booking', {
       method: 'POST',
